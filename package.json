@@ -1,0 +1,27 @@
+{
+  "name": "serverless-dynamodb-docker-boilerplate",
+  "version": "1.0.0",
+  "description": "Severless & dynamodb & docker & webpack boilerplate",
+  "main": "index.js",
+  "author": "Getriax <nikodem.strawa@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "aws-sdk": "^2.363.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-source-map-support": "^2.0.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-import": "^2.14.0",
+    "serverless-mocha-plugin": "^1.9.0",
+    "serverless-offline": "^3.31.3",
+    "serverless-webpack": "^5.2.0",
+    "webpack": "^4.26.1"
+  }
+}
