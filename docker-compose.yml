@@ -1,18 +1,15 @@
-version: 3.5
+version: "3.5"
 services:
   serverless:
-    build:
-      context: .
-      args: ${file(.env.docker.yml)}
+    build: .
     tty: true
     stdin_open: true
-    image: serverless
     working_dir: /app
     volumes:
       - .:/app
     container_name: sls
     env_file:
-      - .env
+      - .env.docker
     logging:
       driver: "json-file"
     depends_on:
@@ -21,9 +18,10 @@ services:
       - target: ${APP_PORT:-3000}
         published: ${PUBLISHED_APP_PORT:-3000}
   db:
-    image: cnadiminti/dynamodb-local
+    image: amazon/dynamodb-local
     ports:
        - target: ${DB_PORT:-8000}
          published: ${PUBLISHED_DB_PORT:-8000}
     volumes:
-      - /data:/dynamodb_local_db
+      - ./data:/dynamodb_local_db
+    container_name: dynamodb
