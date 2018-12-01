@@ -1,35 +1,30 @@
 
-export default class ResponseBuilder {
-  constructor(callback, params = {}, status = 200) {
+class ResponseBuilder {
+  constructor(callback) {
     this.callback = callback;
-    this.status = status;
-    this.params = params;
-    this.message = 'Ok';
+    this.statusCode = 200;
+    this.params = {};
   }
 
-  addParams(params) {
-    Object.assign(this.params, params);
+  send(message) {
+    Object.assign(this.params, { message });
+    this.end();
   }
 
-  removeParam(key) {
-    if (this.params[key]) {
-      delete this.params[key];
-    }
+  json(params) {
+    Object.assign(this.params, { ...params });
+    this.end();
   }
 
-  setMessage(message) {
-    this.message = message;
-  }
-
-  setStatus(status) {
-    this.status = status;
+  status(status) {
+    this.statusCode = status;
+    return this;
   }
 
   buildResponse() {
     return {
-      statusCode: this.status,
+      statusCode: this.statusCode,
       body: JSON.stringify({
-        message: this.message,
         ...this.params,
       }),
       headers: {
@@ -39,12 +34,10 @@ export default class ResponseBuilder {
     };
   }
 
-  exec() {
-    if (this.status === 200) {
-      const response = this.buildResponse();
-      return this.callback(null, response);
-    }
-
-    return this.callback(this.message !== 'Ok' ? this.message : 'Internal error');
+  end() {
+    const response = this.buildResponse();
+    return this.callback(null, response);
   }
 }
+
+export default function (callback) { return new ResponseBuilder(callback); }

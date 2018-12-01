@@ -5,4 +5,7 @@ module.exports = {
     "mocha": true,
     "node": true
   },
+  "rules": {
+    "import/prefer-default-export": "off"
+  }
 };

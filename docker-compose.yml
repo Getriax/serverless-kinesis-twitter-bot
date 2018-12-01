@@ -12,16 +12,6 @@ services:
       - .env.docker
     logging:
       driver: "json-file"
-    depends_on:
-      - db
     ports:
       - target: ${APP_PORT:-3000}
         published: ${PUBLISHED_APP_PORT:-3000}
-  db:
-    image: amazon/dynamodb-local
-    ports:
-       - target: ${DB_PORT:-8000}
-         published: ${PUBLISHED_DB_PORT:-8000}
-    volumes:
-      - ./data:/dynamodb_local_db
-    container_name: dynamodb
