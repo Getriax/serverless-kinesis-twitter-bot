@@ -1,9 +1,9 @@
 module.exports = {
-  "extends": "airbnb-base",
-  "plugins": ["chai-friendly"],
+  "extends": ["airbnb-base", "plugin:jest/recommended"],
+  "plugins": ["jest"],
   "env": {
-    "mocha": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "rules": {
     "import/prefer-default-export": "off"

@@ -1,11 +1,10 @@
 # NOTE: update this with your service name
-service: YOUR_SERVICE_NAME
+service: sls-recon
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-webpack
   - serverless-offline
-  - serverless-mocha-plugin
 
 # serverless-webpack configuration
 # Enable auto-packing of external modules
@@ -23,12 +22,23 @@ provider:
   runtime: nodejs8.10
   region: ${file(./.env.yml):REGION}
   environment: ${file(./.env.yml)}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - kinesis:DescribeStream
+        - kinesis:GetRecords
+        - kinesis:GetShardIterator
+        - kinesis:ListStreams
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: ${file(./.env.yml):KINESIS_ARN}
 
 functions:
-  hello:
-    handler: handlers/hello.world
+  reply:
+    handler: handlers/app.reply
     events:
-      - http:
-          path: hello
-          method: get
-          cors: true
+      - stream:
+          type: kinesis
+          arn: ${file(./.env.yml):KINESIS_ARN}
+          startingPosition: LATEST
