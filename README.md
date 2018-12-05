@@ -1,5 +1,5 @@
-# serverless-docker-boilerplate
-Serverless-docker boilerplate with webpack &amp; babel - node 8.10
+# serverless-kinesis-twitter-bot
+    Reacts on a kinesis writes from [this repo](https://github.com/Getriax/kinesis-twitter-listener)
 ## Docker
 
 Docker has it own environment variables available in env.docker.exmaple
